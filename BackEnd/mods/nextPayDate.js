@@ -1,5 +1,3 @@
-const { response } = require("../mods/response");
-
 exports.nextPayDate=(req,res)=>{
     let daysUntil=0;
     let date=new Date();
@@ -14,9 +12,9 @@ exports.nextPayDate=(req,res)=>{
         let day=getSalaryDay(new Date(date.getFullYear,date.getMonth()+1,7));
         const currDate = new Date();
         const nextDate = new Date(date.getFullYear,date.getMonth()+1,day)
-        return daysUntil = Math.ceil(Math.abs(nextDate - currDate) / (1000 * 60 * 60 * 24)); 
+        daysUntil = Math.ceil(Math.abs(nextDate - currDate) / (1000 * 60 * 60 * 24)); 
     }
-    return res.status(200).json(response('S',daysUntil+''));
+    return res.status(200).json({response:daysUntil});
 }
 
 getSalaryDay=(Date)=>{

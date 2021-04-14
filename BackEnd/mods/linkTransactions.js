@@ -1,5 +1,5 @@
 const savings = require("../models/savings");
-const { response } = require("../mods/response");
+// const { response } = require("../mods/response");
 const Transactions = require("../models/Transactions");
 const Bills=require('../models/bills');
 const SalaryWallet=require('../models/SalaryWallet');
@@ -16,12 +16,12 @@ exports.creatLinkTransaction=(req,res,transaction)=>{
             console.log('err',err);
             console.log('trans',trans);
         });
-        return res.status(500).json(response('E','SOE and category cannot be same'));
+        return res.status(500).json({response:'SOE and category cannot be same'});
     }
-    if(req.body.SOE=='Salary'||req.body.category=='Salary'){
+    else if(req.body.SOE=='Salary'||req.body.category=='Salary'){
         return updateSalaryWallet(req,res,transaction);
     }
-    return res.status(200).json(response('S','Success','Transaction',transaction));
+    return res.status(200).json({response:transaction});
 };
 
 const updateSalaryWallet=(req,res,transaction)=>{

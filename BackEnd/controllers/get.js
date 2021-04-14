@@ -1,6 +1,6 @@
 const savings = require("../models/savings");
 const Transactions = require("../models/Transactions");
-const { response } = require("../mods/response");
+// const { response } = require("../mods/response");
 const {
   getExpensesCategorically,
   getExpenses,
@@ -16,7 +16,7 @@ exports.getTotalSavings = (req, res) => {
       }
       return res
         .status(500)
-        .json(response("E", "Unable to get total savings", "Err", err));
+        .json({response:err});
     });
 };
 

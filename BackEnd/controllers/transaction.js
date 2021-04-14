@@ -1,5 +1,5 @@
 const Transactions = require("../models/Transactions");
-const { response } = require("../mods/response");
+// const { response } = require("../mods/response");
 const {creatLinkTransaction}=require('../mods/linkTransactions');
 
 exports.createTransaction=(req,res)=>{
@@ -9,7 +9,7 @@ exports.createTransaction=(req,res)=>{
             return creatLinkTransaction(req,res,transaction);
             //return res.status(200).json(response('S','Success',transaction));
         }
-        return res.status(500).json(response('E','Failed to create Transaction','err',err));
+        return res.status(500).json({response:err});
     });
 };
 
