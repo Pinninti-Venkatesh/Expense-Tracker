@@ -12,6 +12,7 @@ const {
   getWeeklyExpensesCategorically,
   getMonthlyExpensesCategorically
 } = require("../controllers/get");
+const { nextPayDate } = require("../mods/nextPayDate");
 
 const router = express.Router();
 
@@ -30,5 +31,7 @@ router.get("/totalCagExpenses",isSignedIn,getTotalExpensesCategorically);
 router.get("/dailyCagExpenses",isSignedIn,getDailyExpensesCategorically);
 router.get("/weeklyCagExpenses",isSignedIn,getWeeklyExpensesCategorically);
 router.get("/monthlyCagExpenses",isSignedIn,getMonthlyExpensesCategorically);
+
+router.get("/nextPayDay",isSignedIn,nextPayDate);
 
 module.exports = router;
