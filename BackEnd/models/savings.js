@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const SavingSchema = new mongoose.Schema(
   {
     value: {
-      type:Number,
-      required:true
-  },
+      type: Number,
+      required: true
+    },
     total_savings: {
-      type:Number,
-      required:true
-  },
+      type: Number,
+      required: true
+    },
     transaction_type: {
-      type:String,
-      required:true
+      type: String,
+      required: true
+    },
   },
-  },
-  { timestamps: true }
+  {timestamps:true,strict:false}
 );
 
-module.exports=mongoose.model("Savings",SavingSchema,'Savings');
+module.exports = mongoose.model("Savings", SavingSchema, 'Savings');

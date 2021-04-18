@@ -12,7 +12,7 @@ const SalaryWalletSchema=new mongoose.Schema({
     balance_left:{
         type:Number,
         required:true
-    },
-},{timestamps:true});
+    }
+},{timestamps:true,strict:false});
 
 module.exports=mongoose.model("SalaryWallet",SalaryWalletSchema,'SalaryWallet');
