@@ -1,7 +1,7 @@
 exports.nextPayDate=(req,res)=>{
     let daysUntil=0;
     let date=new Date();
-    salaryDate=getSalaryDay(new Date(date.getFullYear,date.getMonth(),7));
+    salaryDate=getSalaryDay();
     if(date.getDate()==salaryDate){
         daysUntil='PayDay';
     }
@@ -9,21 +9,23 @@ exports.nextPayDate=(req,res)=>{
         daysUntil=salaryDate-date.getDate();
     }
     else{
-        let day=getSalaryDay(new Date(date.getFullYear,date.getMonth()+1,7));
+        let day=getSalaryDay();
         const currDate = new Date();
-        const nextDate = new Date(date.getFullYear,date.getMonth()+1,day)
-        daysUntil = Math.ceil(Math.abs(nextDate - currDate) / (1000 * 60 * 60 * 24)); 
+        const nextDate = new Date(date.getFullYear(),date.getMonth()+1,day)
+        daysUntil = Math.ceil(Math.abs(nextDate - currDate) / (1000 * 60 * 60 * 24));
     }
     return res.status(200).json({response:daysUntil});
 }
 
-getSalaryDay=(Date)=>{
-    let day=Date.getDay();
+getSalaryDay=()=>{
+    let inputDate=new Date(new Date().getFullYear(),new Date().getMonth(),7);
+    let day=inputDate.getDay();
+    console.log('day',day);
     let currentSalaryDate=7;
     if(day==6){
         currentSalaryDate=6;
     }
-    if(day==7){
+    if(day==0){
         currentSalaryDate=5;
     }
     return currentSalaryDate;

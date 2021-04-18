@@ -19,6 +19,10 @@ const TransactionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    link_id:{
+      type:Array,
+      default:[]
+    }
   },
   { timestamps: true }
 );

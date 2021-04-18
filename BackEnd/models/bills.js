@@ -13,4 +13,4 @@ const BillSchema=new mongoose.Schema({
     pay_date:Date
 },{timestamps:true});
 
-module.exports=mongoose.model("Bill",BillSchema);
+module.exports=mongoose.model("Bill",BillSchema,'Bills');
