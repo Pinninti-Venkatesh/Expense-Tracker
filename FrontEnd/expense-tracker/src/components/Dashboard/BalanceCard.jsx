@@ -1,0 +1,84 @@
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import { isAuthenticated } from '../auth';
+import { loadBalance } from './helper/apicalls';
+const useStyles = makeStyles({
+    root: {
+        minWidth: 275,
+        borderBottom: '2px solid black',
+        padding: 10,
+        height: '15vh'
+    },
+    balance: {
+        height: '100%'
+    },
+    balanceText: {
+        height: '50%',
+        fontSize: 14,
+        color: '#fff',
+        margin: 0
+    },
+    button: {
+        margin: 'auto 0',
+        fontSize: 30,
+        color: '#fff'
+    },
+    money: {
+        height: '50%',
+        fontSize: 28,
+        color: '#fff',
+        // marginLeft: 20
+    },
+    title: {
+        fontSize: 24,
+        color: '#fff',
+        margin: 0
+    }
+});
+
+export default function BalanceCard() {
+    const [balance, setBalance] = useState(500);
+    const classes = useStyles();
+    const { authToken } = isAuthenticated();
+    useEffect(() => {
+        loadBalance(authToken).then(data => {
+            setBalance(data.balance);
+        });
+    }, []);
+    return (
+        <Grid
+            container
+            direction="row"
+            justify="space-between"
+            className={classes.root}
+        >
+            <Grid item className={classes.balance}>
+                <Typography className={classes.balanceText} color="textSecondary" gutterBottom>
+                    {/* <IconButton aria-label="add to favorites" className={classes.title}>
+                        
+                    </IconButton> */}
+                    {/* <AccountBalanceWalletIcon/> */}
+                    Balance
+                         
+                </Typography>
+                <Typography variant="h5" className={classes.money} component="h2">
+                    ₹ {balance}
+                </Typography>
+            </Grid>
+            <Grid item className={classes.button}>
+                <IconButton aria-label="delete" className={classes.button} size="small">
+                    <AddBoxIcon fontSize="inherit" />
+                </IconButton>
+            </Grid>
+        </Grid>
+    );
+}

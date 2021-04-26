@@ -1,11 +1,12 @@
 import NavBar from "./NavBar";
 // import './dashboard'
 import './dashboard.scss'
+import MainWidgetMod from './MainWidgetMod'
 const Dashboard = () => {
     return (
     <div className="dashboard-container">
         <NavBar />
-        <div className="main-widget-mod"></div>
+        <MainWidgetMod/>
         <div className="cat-trans-mod">
             <div className="category-mod"></div>
             <div className="transaction-mod"></div>
