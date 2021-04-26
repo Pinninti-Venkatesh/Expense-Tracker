@@ -17,8 +17,8 @@ mongoose.connect(process.env.DATABASEURL,{useNewUrlParser:true,useUnifiedTopolog
 });
 
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
+app.use(cors());
 
 app.use('/',authRouter);
 app.use('/categories/',categoriesRouter);
