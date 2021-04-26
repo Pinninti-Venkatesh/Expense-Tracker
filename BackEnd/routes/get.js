@@ -10,14 +10,15 @@ const {
   getWeeklyExpenses,
   getDailyExpensesCategorically,
   getWeeklyExpensesCategorically,
-  getMonthlyExpensesCategorically
+  getMonthlyExpensesCategorically,
+  getBalance
 } = require("../controllers/get");
 const { nextPayDate } = require("../mods/nextPayDate");
 
 const router = express.Router();
 
 router.get("/totalSavings", isSignedIn, getTotalSavings);
-
+router.get("/getBalance",isSignedIn,getBalance);
 //Expenses
 
 router.get("/totalExpenses",isSignedIn,getTotalExpenses);

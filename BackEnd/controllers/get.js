@@ -1,5 +1,6 @@
 const savings = require("../models/savings");
 const Transactions = require("../models/Transactions");
+const SalaryWallet = require("../models/SalaryWallet");
 // const { response } = require("../mods/response");
 const {
   getExpensesCategorically,
@@ -20,6 +21,14 @@ exports.getTotalSavings = (req, res) => {
     });
 };
 
+exports.getBalance=(req,res)=>{
+SalaryWallet.findOne().sort({createdAt:-1}).exec((err,salaryWallet)=>{
+  if(!err){
+    return res.status(200).json({balance:salaryWallet.balance_left});
+  }
+  return res.status(500).json({response:err});
+})
+}
 exports.getTotalExpenses = (req, res) => {
   let query = {
     type: "Expense",
