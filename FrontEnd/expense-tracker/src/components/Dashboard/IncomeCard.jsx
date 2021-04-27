@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { getNetSalary, getPayDay } from './helper/apicalls';
 import { isAuthenticated } from '../auth';
@@ -18,7 +14,11 @@ const useStyles = makeStyles({
   balance: {
     display: 'flex',
     justifyContent: 'space-between'
-  }
+  },
+  money:{
+    marginBottom:0,
+    marginTop:5
+  }  
 });
 
 export default function IncomeCard() {
@@ -38,17 +38,16 @@ export default function IncomeCard() {
   }, []);
   return (
     <Card className={classes.root}>
-      <CardActionArea>
         <CardContent>
-          <Typography variant="body2" component="p" className={classes.balance}>
+          <Typography variant="body2" component="div" className={classes.balance}>
             Income
             <Chip label={incomeData.days} />
           </Typography>
-          <Typography gutterBottom variant="h5" component="h2">
-            ₹ {(incomeData.income).toFixed(2)}
+          <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
+            ₹ 683899.99
+            {/* ₹ {(incomeData.income).toFixed(2)} */}
           </Typography>
         </CardContent>
-      </CardActionArea>
     </Card>
   );
 }

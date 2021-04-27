@@ -9,7 +9,6 @@ export const loadBalance=token=>{
             Authorization: `Bearer ${token}`,
         }
     }).then(response=>{
-        console.log('getBalance API',response);
         return response.json();
     }).catch(err=>{
         console.log('error in loadingBalance',err);
@@ -28,6 +27,36 @@ export const getPayDay=token=>{
         return response.json();
     }).catch(err=>{
         console.log('error in getPayDay',err);
+    });
+};
+
+export const getPeriodExpenses=(token,routeName)=>{
+    return fetch(`${API}get/${routeName}`,{
+        method:'GET',
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        }
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in getTotalExpenses',err);
+    });
+};
+
+export const getTotalExpenses=token=>{
+    return fetch(`${API}get/totalExpenses`,{
+        method:'GET',
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        }
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in getTotalExpenses',err);
     });
 };
 

@@ -36,7 +36,6 @@ const useStyles = makeStyles({
         height: '50%',
         fontSize: 28,
         color: '#fff',
-        // marginLeft: 20
     },
     title: {
         fontSize: 24,
@@ -63,12 +62,7 @@ export default function BalanceCard() {
         >
             <Grid item className={classes.balance}>
                 <Typography className={classes.balanceText} color="textSecondary" gutterBottom>
-                    {/* <IconButton aria-label="add to favorites" className={classes.title}>
-                        
-                    </IconButton> */}
-                    {/* <AccountBalanceWalletIcon/> */}
                     Balance
-                         
                 </Typography>
                 <Typography variant="h5" className={classes.money} component="h2">
                     ₹ {balance}
