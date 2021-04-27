@@ -15,39 +15,46 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between'
   },
-  money:{
-    marginBottom:0,
-    marginTop:5
-  }  
+  money: {
+    marginBottom: 0,
+    marginTop: 5
+  }
 });
 
 export default function IncomeCard() {
   const classes = useStyles();
   const { authToken } = isAuthenticated();
   const [incomeData, setIncomeData] = useState({
-    days: "12 Days Left",
-    income: "683899.99"
+    days: "",
+    income: 6
   });
+
   useEffect(() => {
     getPayDay(authToken).then(res => {
-      setIncomeData({ ...incomeData, days: res.response });
+      getNetSalary(authToken).then(res2 => {
+        setIncomeData({ days: res.response, income: res2.response });
+      });
     });
-    getNetSalary(authToken).then(res => {
-      setIncomeData({ ...incomeData, income: res.response });
-    })
+    
   }, []);
   return (
     <Card className={classes.root}>
-        <CardContent>
-          <Typography variant="body2" component="div" className={classes.balance}>
-            Income
-            <Chip label={incomeData.days} />
-          </Typography>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-            ₹ 683899.99
+      <CardContent>
+        <Typography variant="body2" component="div" className={classes.balance}>
+          Income
+            <Chip
+            className={classes.chip}
+            label={incomeData.days}
+            size="small"
+            variant="outlined"
+          />
+          {/* <Chip label={incomeData.days} /> */}
+        </Typography>
+        <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
+            ₹ {7485485}
             {/* ₹ {(incomeData.income).toFixed(2)} */}
-          </Typography>
-        </CardContent>
+        </Typography>
+      </CardContent>
     </Card>
   );
 }
