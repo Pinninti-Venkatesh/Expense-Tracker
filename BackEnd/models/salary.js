@@ -19,6 +19,9 @@ const salarySchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    otherDeductions:{
+        type:Number,
+    },
     total_salary:{
         type:Number,
         required:true

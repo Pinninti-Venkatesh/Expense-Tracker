@@ -7,32 +7,46 @@ exports.addSalary = (req, res) => {
     if (!err) {
       return res
         .status(200)
-        .json({response:salary});
+        .json({ response: salary });
     }
     return res
       .status(500)
-      .json({response:err});
+      .json({ response: err });
   });
 };
 
 exports.removeSalary = (req, res) => {
-  Salary.findOneAndDelete({_id:req.body.id}, { sort: { createdAt: -1 } }, (err, ctc) => {
+  Salary.findOneAndDelete({ _id: req.body.id }, { sort: { createdAt: -1 } }, (err, ctc) => {
     if (!err) {
-      return res.status(200).json({response:'salary deleted'});
+      return res.status(200).json({ response: 'salary deleted' });
     }
     return res
       .status(500)
-      .json({response:err});
+      .json({ response: err });
   });
 };
 
-exports.getAllSalary = (req, res) => {
-    CTC.find().exec((err, allSalary) => {
+exports.getNetSalary = (req, res) => {
+  Salary.findOne()
+    .sort({ createdAt: -1 }).exec((err, salary) => {
       if (!err) {
-        return res.status(200).json({response:allSalary});
+        return res
+          .status(200)
+          .json({ response: salary.net_salary });
       }
       return res
         .status(500)
-        .json({response:err});
-    });
-  };
+        .json({ response: err });
+    })
+}
+
+exports.getAllSalary = (req, res) => {
+  CTC.find().exec((err, allSalary) => {
+    if (!err) {
+      return res.status(200).json({ response: allSalary });
+    }
+    return res
+      .status(500)
+      .json({ response: err });
+  });
+};

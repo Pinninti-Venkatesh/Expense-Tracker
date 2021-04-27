@@ -7,12 +7,14 @@ exports.nextPayDate=(req,res)=>{
     }
     else if(salaryDate>date.getDate()){
         daysUntil=salaryDate-date.getDate();
+        daysUntil=daysUntil==1?daysUntil+" day till payday":daysUntil+" days till payday";
     }
     else{
         let day=getSalaryDay();
         const currDate = new Date();
         const nextDate = new Date(date.getFullYear(),date.getMonth()+1,day)
         daysUntil = Math.ceil(Math.abs(nextDate - currDate) / (1000 * 60 * 60 * 24));
+        daysUntil=daysUntil==1?daysUntil+" day till payday":daysUntil+" days till payday";
     }
     return res.status(200).json({response:daysUntil});
 }
