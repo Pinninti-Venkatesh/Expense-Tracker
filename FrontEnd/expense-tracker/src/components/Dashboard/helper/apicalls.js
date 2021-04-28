@@ -45,6 +45,21 @@ export const getPeriodExpenses=(token,routeName)=>{
     });
 };
 
+export const getCategoricalExpenses=(token,routeName)=>{
+    return fetch(`${API}get/${routeName}`,{
+        method:'GET',
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token}`
+        }
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in getCategoricalExpenses',err);
+    })
+};
+
 export const getTotalSavings=token=>{
     return fetch(`${API}get/totalSavings`,{
         method:'GET',

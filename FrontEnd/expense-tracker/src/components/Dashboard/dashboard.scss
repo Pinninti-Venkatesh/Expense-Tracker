@@ -34,5 +34,8 @@ div .MuiBottomNavigation-root {
             box-sizing: border-box;
             height: 50%;
         }
+        ::-webkit-scrollbar {
+            display: none;
+        }
     }
 }
