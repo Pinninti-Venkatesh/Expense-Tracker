@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import './dashboard.scss'
 import MainWidgetMod from './MainWidgetMod'
 import CategoryMod from "./CategoryMod";
+import TransactionsMod from "./TransactionsMod";
 const Dashboard = () => {
     return (
     <div className="dashboard-container">
@@ -10,7 +11,7 @@ const Dashboard = () => {
         <MainWidgetMod/>
         <div className="cat-trans-mod">
             <CategoryMod />
-            <div className="transaction-mod"></div>
+            <TransactionsMod />
         </div>
     </div>
     );

@@ -104,3 +104,18 @@ export const getNetSalary=token=>{
         console.log('error in getNetSalary',err);
     })
 }
+
+export const getAllTransactions=token=>{
+    return fetch(`${API}transaction/All`,{
+        method:'GET',
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application",
+            Authorization:`Bearer ${token}`
+        }
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in getAllTransactions',err);
+    })
+}
