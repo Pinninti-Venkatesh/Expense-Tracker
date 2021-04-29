@@ -128,6 +128,15 @@ exports.deleteTransaction = (req, res) => {
   });
 }
 
+exports.getTransactions=(req,res)=>{
+  Transactions.find({}).sort({ createdAt: -1 }).exec((err,transactions)=>{
+    if (!err) {
+      return res.status(200).json({ response: transactions });
+    }
+    return res.status(500).json({ response: err });
+  })
+}
+
 const createBill = (req) => {
   return new Promise(function (resolve, reject) {
     if (req.body.category == "Bills") {
