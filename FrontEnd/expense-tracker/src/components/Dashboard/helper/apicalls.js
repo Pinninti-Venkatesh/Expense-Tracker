@@ -104,7 +104,21 @@ export const getNetSalary=token=>{
         console.log('error in getNetSalary',err);
     })
 }
-
+export const deleteTransaction=(token,body)=>{
+    return fetch(`${API}transaction/delete`,{
+        method:'DELETE',
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token}`
+        },
+        body:JSON.stringify(body)
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in delete transaction',err);
+    })
+}
 export const getAllTransactions=token=>{
     return fetch(`${API}transaction/All`,{
         method:'GET',
