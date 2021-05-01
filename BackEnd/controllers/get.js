@@ -42,7 +42,7 @@ exports.getMonthlyExpenses = (req, res) => {
   let query = {
     createdAt: {
       $lte: new Date(),
-      $gte: new Date(date.setDate(date.getMonth() - 1)),
+      $gte: new Date(date.setMonth(date.getMonth() - 1)),
     },
     type: "Expense",
   };
@@ -108,7 +108,7 @@ exports.getMonthlyExpensesCategorically = (req, res) => {
   let query = {
     createdAt: {
       $lte: new Date(),
-      $gte: new Date(date.setDate(date.getMonth() - 1)),
+      $gte: new Date(date.setMonth(date.getMonth() - 1)),
     },
     type: "Expense",
   };
