@@ -1,19 +1,17 @@
-import NavBar from "./NavBar";
-// import './dashboard'
-import './dashboard.scss'
 import MainWidgetMod from './MainWidgetMod'
 import CategoryMod from "./CategoryMod";
 import TransactionsMod from "./TransactionsMod";
+import React from 'react';
 const Dashboard = () => {
     return (
-    <div className="dashboard-container">
-        <NavBar />
-        <MainWidgetMod/>
-        <div className="cat-trans-mod">
-            <CategoryMod />
-            <TransactionsMod />
-        </div>
-    </div>
+        <React.Fragment>
+            <MainWidgetMod />
+            <div className="cat-trans-mod">
+                <CategoryMod />
+                <TransactionsMod />
+            </div>
+        </React.Fragment>
+
     );
 }
 

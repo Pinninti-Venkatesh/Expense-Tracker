@@ -13,7 +13,10 @@ import { isAuthenticated } from '../auth';
 
 const useStyles = makeStyles({
     root: {
-        margin: 5
+        margin: 5,
+        width:'90%',
+        backgroundColor:'#495766',
+        color:'#fff'
     },
     balance: {
         display: 'flex',

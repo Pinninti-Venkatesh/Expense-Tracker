@@ -17,7 +17,7 @@ import InputForm from './InputForm';
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
-        borderBottom: '2px solid black',
+        // borderBottom: '2px solid black',
         padding: 10,
         height: '15vh'
     },
@@ -50,7 +50,10 @@ const useStyles = makeStyles({
 export default function BalanceCard() {
     const [balance, setBalance] = useState(0);
     const classes = useStyles();
-    const [form, setForm] = useState(false);
+    const [form, setForm] = useState({
+        toggle:true,
+        open:false
+    });
     const { authToken } = isAuthenticated();
     useEffect(() => {
         loadBalance(authToken).then(data => {
@@ -78,8 +81,7 @@ export default function BalanceCard() {
                     <EditIcon  />
                 </Fab> */}
                 <IconButton aria-label="delete" className={classes.button} size="small" onClick={() => {
-                    setForm(true);
-                    console.log('fab', form);
+                    setForm({toggle:!form.toggle,open:true});
                 }}>
                     <AddBoxIcon fontSize="inherit" />
                 </IconButton>

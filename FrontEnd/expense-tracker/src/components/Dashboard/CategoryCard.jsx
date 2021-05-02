@@ -6,9 +6,11 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
     card: {
-        height: '45%',
+        height: '40%',
         width:'25%',
-        margin:'10px  20px'
+        margin:'10px  20px',
+        backgroundColor:'#495766',
+    color:'#fff'
     },
     head: {
         display: 'flex',

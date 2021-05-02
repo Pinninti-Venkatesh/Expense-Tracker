@@ -61,7 +61,7 @@ exports.deleteTransaction = (req, res) => {
                   value: salaryWallet.value,
                   transaction_type:salaryWallet.transaction_type == "Debited" ? "Credited" : "Debited",
                   balance_left: balance_left,
-                  description: 'Created because of deletion of record',
+                  description: salaryWallet.transaction_type == "Debited"?'Created because of deletion of record':'Debited because of deletion of record',
                   deleted_doc: [salaryWallet],
                 };
                 new SalaryWallet(wallet).save((err, wallet) => {
@@ -162,13 +162,13 @@ const createBill = (req) => {
 const updateSalaryWallet = (req) => {
   console.log('req usw', req.body);
   return new Promise(function (resolve, reject) {
-    if (req.body.SOE == "Salary" || req.body.category == "Salary") {
+    if (req.body.SOE == "Salary" || req.body.category == "Salary"||req.body.type=="Earn") {
       let balance_left = 0;
       SalaryWallet.findOne().sort({ createdAt: -1 }).exec((err, lastSalary) => {
         if (!err && lastSalary) {
           balance_left = parseFloat(lastSalary.balance_left);
         }
-        balance_left = req.body.type == "Earn" && req.body.category == "Salary"? balance_left + parseFloat(req.body.value) : balance_left - parseFloat(req.body.value);
+        balance_left = req.body.type == "Earn"? balance_left + parseFloat(req.body.value) : balance_left - parseFloat(req.body.value);
         if (balance_left < 0) {
           let response = { response: 'You do not have enough funds to spend from Salary', code: 'T' };
           resolve(response);
@@ -176,7 +176,7 @@ const updateSalaryWallet = (req) => {
         }
         const wallet = {
           value: req.body.value,
-          transaction_type: req.body.type == "Earn" && req.body.category == "Salary"? "Credited" : "Debited",
+          transaction_type: req.body.type == "Earn"? "Credited" : "Debited",
           balance_left: balance_left
         };
         new SalaryWallet(wallet).save((err, wallet) => {
@@ -196,8 +196,6 @@ const updateSalaryWallet = (req) => {
     }
   });
 };
-
-
 
 const createSavingsTransaction = (req) => {
   return new Promise(function (resolve, reject) {

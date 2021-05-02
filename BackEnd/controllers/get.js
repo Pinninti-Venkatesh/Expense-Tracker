@@ -1,33 +1,49 @@
 const savings = require("../models/savings");
 const Transactions = require("../models/Transactions");
 const SalaryWallet = require("../models/SalaryWallet");
+const Bill = require("../models/bills");
 // const { response } = require("../mods/response");
 const {
   getExpensesCategorically,
   getExpenses,
 } = require("../mods/expenseTransactions");
 
+exports.getBills = (req, res) => {
+  try{
+    Bill.find({},{name:1,validity:1,pay_date:1,value:1,_id:0}).exec((err, bills) => {
+      if (!err && bills) {
+        return res.status(200).json({ response: bills });
+      }
+      return res
+        .status(500)
+        .json({ response: err });
+    })
+  }catch(e){
+    console.log('error in getBills',e);
+  }
+}
+
 exports.getTotalSavings = (req, res) => {
   savings
     .findOne()
     .sort({ createdAt: -1 })
     .exec((err, saving) => {
-      if (!err&&saving) {
+      if (!err && saving) {
         return res.status(200).json({ total_savings: saving.total_savings });
       }
       return res
         .status(500)
-        .json({response:err});
+        .json({ response: err });
     });
 };
 
-exports.getBalance=(req,res)=>{
-SalaryWallet.findOne().sort({createdAt:-1}).exec((err,salaryWallet)=>{
-  if(!err&&salaryWallet){
-    return res.status(200).json({balance:salaryWallet.balance_left});
-  }
-  return res.status(500).json({response:err});
-})
+exports.getBalance = (req, res) => {
+  SalaryWallet.findOne().sort({ createdAt: -1 }).exec((err, salaryWallet) => {
+    if (!err && salaryWallet) {
+      return res.status(200).json({ balance: salaryWallet.balance_left });
+    }
+    return res.status(500).json({ response: err });
+  })
 }
 exports.getTotalExpenses = (req, res) => {
   let query = {

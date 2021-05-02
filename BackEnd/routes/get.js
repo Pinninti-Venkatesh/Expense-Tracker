@@ -11,7 +11,8 @@ const {
   getDailyExpensesCategorically,
   getWeeklyExpensesCategorically,
   getMonthlyExpensesCategorically,
-  getBalance
+  getBalance,
+  getBills
 } = require("../controllers/get");
 const { nextPayDate } = require("../mods/nextPayDate");
 
@@ -34,5 +35,7 @@ router.get("/weeklyCagExpenses",isSignedIn,getWeeklyExpensesCategorically);
 router.get("/monthlyCagExpenses",isSignedIn,getMonthlyExpensesCategorically);
 
 router.get("/nextPayDay",isSignedIn,nextPayDate);
+
+router.get("/Bills",getBills);
 
 module.exports = router;

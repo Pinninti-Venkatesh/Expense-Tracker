@@ -13,7 +13,10 @@ import { isAuthenticated } from '../auth';
 
 const useStyles = makeStyles({
     root: {
-        margin: 5
+        margin: 5,
+        width:'90%',
+        backgroundColor:'#495766',
+        color:'#fff'
     },
     balance: {
         display: 'flex',
@@ -32,7 +35,7 @@ const SavingsCard = () => {
     useEffect(() => {
         getTotalSavings(authToken).then(res => {
             {/* ₹ {(incomeData.income).toFixed(2)} */}
-            if(res.total){
+            if(res.total_savings){
                 setTotal((res.total_savings).toFixed(2));
             }
         });
@@ -44,8 +47,8 @@ const SavingsCard = () => {
                     Savings
                 </Typography>
                 <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-                    ₹ 75943
-                    {/* ₹ {total} */}
+                    {/* ₹ 75943 */}
+                    ₹ {total}
                 </Typography>
             </CardContent>
         </Card>

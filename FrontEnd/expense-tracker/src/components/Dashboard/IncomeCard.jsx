@@ -9,11 +9,17 @@ import Chip from '@material-ui/core/Chip';
 const useStyles = makeStyles({
   root: {
     // width:
-    margin: 5
+    margin: 5,
+    width:'90%',
+    backgroundColor:'#495766',
+    color:'#fff'
   },
   balance: {
     display: 'flex',
     justifyContent: 'space-between'
+  },
+  chip:{
+    color:'white'
   },
   money: {
     marginBottom: 0,

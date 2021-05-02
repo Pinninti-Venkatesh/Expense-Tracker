@@ -75,7 +75,6 @@ const CategoryMod = () => {
     useEffect(() => {
         getCategoricalExpenses(authToken, 'totalCagExpenses').then(res => {
             let apiResObject = res.response;
-            console.log('api response',apiResObject);
             let cardsJSONdup = cardsJSON.map(element => {
                 apiResObject.forEach(apiObj => {
                     if (element.name == apiObj._id) {

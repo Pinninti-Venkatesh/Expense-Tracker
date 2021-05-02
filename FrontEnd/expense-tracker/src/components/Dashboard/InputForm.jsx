@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import MenuItem from "@material-ui/core/MenuItem"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        height: 150
+        height: 150,
+        // backgroundColor:'#495766',
         // direction: 'row'
     },
     textField: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black'
     }
 }));
+
 export default function InputForm({ openDialog }) {
     const classes = useStyles();
     const { authToken } = isAuthenticated();
@@ -39,36 +41,35 @@ export default function InputForm({ openDialog }) {
         SOE: '',
         description: '',
         paydate: '',
-        validity:'',
-        open: openDialog
+        validity: '',
     });
+    const [open, setOpen] = useState(openDialog.open);
     const [categories, setCategories] = useState([{}]);
     const handleClose = () => {
-        setValue({ ...value, 'open': false });
+        setOpen(false);
     };
-    const submitTransaction=()=>{
-        createTransaction(authToken,value).then(response=>{
+    const submitTransaction = () => {
+        createTransaction(authToken, value).then(response => {
             handleClose();
             window.location.reload();
         })
     }
-    const styles = theme => ({
-        multilineColor: {
-            color: 'black'
-        }
-    });
+    useEffect(() => {
+        setOpen(openDialog.open);
+    }, [openDialog]);
+
     useEffect(() => {
         getCategories(authToken).then(res => {
-            console.log('ressss', res.response);
             setCategories(res.response);
         })
-    }, [true]);
+    }, []);
+
     return (
         <div>
-            <Dialog open={value.open} onClose={handleClose}
+            <Dialog open={open} onClose={handleClose}
                 fullWidth={true}
-                // maxWidth={true}
-                aria-labelledby="form-dialog-title">
+                aria-labelledby="form-dialog-title"
+                >
                 <DialogTitle id="form-dialog-title">Create Transaction</DialogTitle>
                 <DialogContent>
                     <form
@@ -123,8 +124,11 @@ export default function InputForm({ openDialog }) {
                                 value={value.SOE}
                                 onChange={handleChange("SOE")}
                             >
-                                <MenuItem key="Salary" value="Salary">Salary</MenuItem>
-                                <MenuItem key="Savings" value="Savings">Savings</MenuItem>
+                                {value.type == 'Expense' && <MenuItem key="Salary" value="Salary">Salary</MenuItem>}
+                                {value.type == 'Expense' && <MenuItem key="Savings" value="Savings">Savings</MenuItem>}
+                                {value.type == 'Earn' && <MenuItem key="Job" value="Job">Job</MenuItem>}
+                                {value.type == 'Earn' && <MenuItem key="Bank" value="Bank">Bank</MenuItem>}
+                                {value.type == 'Earn' && <MenuItem key="Gift" value="Gift">Gift</MenuItem>}
                             </TextField>
                             <TextField
                                 id="description"
@@ -152,7 +156,7 @@ export default function InputForm({ openDialog }) {
                             }
                             {value.category == 'Bills' &&
                                 <TextField id="validity" className={classes.textField}
-                                label="Validity" value={value.validity} onChange={handleChange("validity")} />
+                                    label="Validity" value={value.validity} onChange={handleChange("validity")} />
                             }
 
                         </Grid>
@@ -160,10 +164,10 @@ export default function InputForm({ openDialog }) {
                 </DialogContent>
                 <DialogActions>
                     <Button
-                         onClick={()=>{
+                        onClick={() => {
                             submitTransaction();
-                         }} 
-                        color="Submit" >Create</Button>
+                        }}
+                    >Create</Button>
                 </DialogActions>
             </Dialog>
         </div>
