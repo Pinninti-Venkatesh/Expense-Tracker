@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   root: {
     // width:
-    margin: 5,
+    margin: 15,
     // width: '90%',
     // width:'auto',
     width: '20%',
@@ -16,15 +16,15 @@ const useStyles = makeStyles({
     display: 'inline-block',
     color: '#fff'
   },
-  balance: {
-    display: 'flex',
-    justifyContent: 'space-between'
+  mainTitle: {
+    color:'black'
   },
   chip: {
     color: 'white'
   },
   titles:{
-    marginBottom:0
+    marginBottom:0,
+    color:'black'
   },
   money: {
     marginBottom: 25,
@@ -32,17 +32,17 @@ const useStyles = makeStyles({
   }
 });
 
-const BillCard = () => {
+const BillCard = ({name,value,validity,nextPayDate}) => {
   const classes = useStyles();
   return (
       <Card className={classes.root}>
         <CardContent>
-          <Typography variant="body2" component="div" className={classes.balance}>
-            Youtube Subscription
+          <Typography variant="body2" component="div" className={classes.mainTitle}>
+            {name}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-            ₹ {7485485}
-            {/* ₹ {(incomeData.income).toFixed(2)} */}
+            {/* ₹ {value} */}
+            ₹ {(value).toFixed(2)}
           </Typography>
           <Grid
             container
@@ -54,7 +54,7 @@ const BillCard = () => {
                 Validity
               </Typography>
               <Typography variant="body2" component="div">
-                1 Month
+                {validity}
               </Typography>
             </div>
 
@@ -63,7 +63,7 @@ const BillCard = () => {
                 Next PayDate
               </Typography>
               <Typography variant="body2" component="div">
-                4/5/2021
+                {nextPayDate}
               </Typography>
             </div>
           </Grid>

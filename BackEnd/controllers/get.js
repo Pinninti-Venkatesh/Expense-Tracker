@@ -10,7 +10,7 @@ const {
 
 exports.getBills = (req, res) => {
   try{
-    Bill.find({},{name:1,validity:1,pay_date:1,value:1,_id:0}).exec((err, bills) => {
+    Bill.find({},{name:1,validity:1,pay_date:1,value:1,_id:0}).sort({createdAt:-1}).exec((err, bills) => {
       if (!err && bills) {
         return res.status(200).json({ response: bills });
       }

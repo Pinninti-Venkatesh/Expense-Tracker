@@ -1,75 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-const useStyles = makeStyles({
-  root: {
-    // width:
-    margin: 5,
-    // width: '90%',
-    // width:'auto',
-    width: '20%',
-    backgroundColor: '#495766',
-    display: 'inline-block',
-    color: '#fff'
-  },
-  balance: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  chip: {
-    color: 'white'
-  },
-  titles: {
-    marginBottom: 0
-  },
-  money: {
-    marginBottom: 25,
-    marginTop: 15
-  }
-});
+import BillCard from './BillCard';
+import { getBills } from './helper/apicalls';
+import { isAuthenticated } from '../auth';
 
 const BillBoard = () => {
-  const classes = useStyles();
+  const [bills,setBills]=useState([]);
+  const{authToken}=isAuthenticated();
+  useEffect(()=>{
+      getBills(authToken).then(res=>{
+        setBills(res.response);
+      });
+  },[])
   return (
     <div className="billboard-container">
-      <Grid>
-        <Card className={classes.root}>
-          <CardContent>
-            <Typography variant="body2" component="div" className={classes.balance}>
-              Youtube Subscription
-          </Typography>
-            <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-              ₹ {7485485}
-              {/* ₹ {(incomeData.income).toFixed(2)} */}
-            </Typography>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-            >
-              <div>
-                <Typography gutterBottom variant="body1" component="h2" className={classes.titles}>
-                  Validity
-              </Typography>
-                <Typography variant="body2" component="div">
-                  1 Month
-              </Typography>
-              </div>
-
-              <div>
-                <Typography gutterBottom variant="body1" component="h2" className={classes.titles}>
-                  Next PayDate
-              </Typography>
-                <Typography variant="body2" component="div">
-                  4/5/2021
-              </Typography>
-              </div>
-            </Grid>
-          </CardContent>
-        </Card>
+      <Grid
+      container
+      justify="space-around"
+      >
+        {bills.map(bill=>{
+          let validity=bill.validity;
+          let nextPayDate=new Date(bill.pay_date);
+          let indicator=validity.substr(validity.length-1);
+          let currentDate=new Date();
+          let validityNum= parseInt(validity.substr(0,validity.length-1));
+          currentDate.setHours(0,0,0,0);
+          if(indicator=='D'){
+            nextPayDate = new Date(nextPayDate.getTime() + validityNum* 24 * 60 * 60 * 1000);
+            if(nextPayDate<currentDate){
+              console.log('inside this ');
+              return;
+            }
+            nextPayDate=nextPayDate.getDate()+"/"+(nextPayDate.getMonth()+1)+"/"+nextPayDate.getFullYear();
+            validityNum=validityNum+" Days";
+          }
+          else if(indicator=='M'){
+            nextPayDate.setMonth(nextPayDate.getMonth()+validityNum);
+            if(nextPayDate<currentDate){
+              return;
+            }
+            nextPayDate=nextPayDate.getDate()+"/"+(nextPayDate.getMonth()+1)+"/"+nextPayDate.getFullYear();
+            validityNum+=validityNum>1?" Months":" Month";
+          }
+          else{
+            nextPayDate.setFullYear(nextPayDate.getFullYear()+validityNum);
+            if(nextPayDate<currentDate){
+              return;
+            }
+            validityNum+=validityNum>1?" Years":" Year";
+            nextPayDate=nextPayDate.getDate()+"/"+(nextPayDate.getMonth()+1)+"/"+nextPayDate.getFullYear();
+          }
+          return <BillCard name={bill.name} value={bill.value} validity={validityNum} nextPayDate={nextPayDate}/> ;
+        })}
+        
       </Grid>
       </div>
 
