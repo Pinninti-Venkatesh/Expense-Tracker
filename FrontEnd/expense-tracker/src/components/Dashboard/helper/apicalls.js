@@ -119,6 +119,7 @@ export const deleteTransaction=(token,body)=>{
         console.log('error in delete transaction',err);
     })
 }
+
 export const getAllTransactions=token=>{
     return fetch(`${API}transaction/All`,{
         method:'GET',
@@ -131,5 +132,37 @@ export const getAllTransactions=token=>{
         return response.json();
     }).catch(err=>{
         console.log('error in getAllTransactions',err);
+    })
+}
+
+export const createTransaction=(token,transaction)=>{
+    return fetch(`${API}transaction/create`,{
+        method:'POST',
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token}`
+        },
+        body:JSON.stringify(transaction)
+    }).then(response=>{
+        console.log('createTransaction reponse',response);
+        return response.json();
+    }).catch(err=>{
+        console.log('error in createTransaction',err);
+    })
+};
+
+export const getCategories=token=>{
+    return fetch(`${API}categories/All`,{
+        method:'GET',
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application",
+            Authorization:`Bearer ${token}`
+        }
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in getCategories',err);
     })
 }

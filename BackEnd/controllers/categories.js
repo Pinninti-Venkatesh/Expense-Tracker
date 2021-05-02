@@ -25,7 +25,7 @@ exports.deleteCategory=(req,res)=>{
 };
 
 exports.getAllCategories=(req,res)=>{
-    Categories.find((err,Categories)=>{
+    Categories.find({},{name:1,type:1,_id:0},(err,Categories)=>{
         if(!err){
             return res.status(200).json({response:Categories});
         }

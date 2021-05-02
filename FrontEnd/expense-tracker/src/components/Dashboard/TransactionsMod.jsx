@@ -44,6 +44,7 @@ const TransactionsMod = () => {
             if(res.response=='done'){
                 const updatedTransactions =transactions.filter(transaction=>transaction._id!=id);
                 setTransactions(updatedTransactions);
+                window.location.reload();
             }
             else{
                 alert(res);
@@ -75,8 +76,7 @@ const TransactionsMod = () => {
             >
                 {transactions.map(transaction => {
                     let transactionDate=new Date(transaction.createdAt);
-
-                    return <TransactionComponent id={transaction._id} category={transaction.category} description={transaction.description} date={months[transactionDate.getMonth()]+" "+transactionDate.getDate()} value={transaction.type=="Earn"?"+"+transaction.value:"-"+transaction.value} onDelete={removeTransaction} />
+                    return <TransactionComponent key={transaction._id} id={transaction._id} category={transaction.category} description={transaction.description} date={months[transactionDate.getMonth()]+" "+transactionDate.getDate()} value={transaction.type=="Earn"?"+"+transaction.value:"-"+transaction.value} onDelete={removeTransaction} />
                 })}
             </List>
         </div>

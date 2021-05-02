@@ -11,6 +11,9 @@ import IconButton from '@material-ui/core/IconButton';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import { isAuthenticated } from '../auth';
 import { loadBalance } from './helper/apicalls';
+import Fab from "@material-ui/core/Fab";
+import EditIcon from "@material-ui/icons/Edit"
+import InputForm from './InputForm';
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
@@ -45,8 +48,9 @@ const useStyles = makeStyles({
 });
 
 export default function BalanceCard() {
-    const [balance, setBalance] = useState(500);
+    const [balance, setBalance] = useState(0);
     const classes = useStyles();
+    const [form, setForm] = useState(false);
     const { authToken } = isAuthenticated();
     useEffect(() => {
         loadBalance(authToken).then(data => {
@@ -69,10 +73,19 @@ export default function BalanceCard() {
                 </Typography>
             </Grid>
             <Grid item className={classes.button}>
-                <IconButton aria-label="delete" className={classes.button} size="small">
+
+                {/* <Fab color="primary" aria-label="edit" size="small">
+                    <EditIcon  />
+                </Fab> */}
+                <IconButton aria-label="delete" className={classes.button} size="small" onClick={() => {
+                    setForm(true);
+                    console.log('fab', form);
+                }}>
                     <AddBoxIcon fontSize="inherit" />
                 </IconButton>
+                <InputForm key={form} openDialog={form} />
             </Grid>
+
         </Grid>
     );
 }

@@ -32,7 +32,9 @@ const SavingsCard = () => {
     useEffect(() => {
         getTotalSavings(authToken).then(res => {
             {/* ₹ {(incomeData.income).toFixed(2)} */}
-            setTotal((res.total_savings).toFixed(2));
+            if(res.total){
+                setTotal((res.total_savings).toFixed(2));
+            }
         });
       }, []);
     return (

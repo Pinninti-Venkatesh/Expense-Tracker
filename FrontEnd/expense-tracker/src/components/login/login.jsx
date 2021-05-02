@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Redirect,useHistory} from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import './login.scss'
+// import './login.scss'
 import { Typography, Button } from '@material-ui/core';
 import {API} from '../../backend';
 import { authenticate, signIn } from '../auth';
@@ -54,7 +54,7 @@ const Login = () => {
             </Grid>
             <Grid item >
                 <TextField id="username" value={auth.email} style={{ display: 'none' }} disabled></TextField>
-                <TextField error={auth.error} id="password" type="password" style={{ width: 300 }} value={auth.password} onChange={handleChange("password")}></TextField>
+                <TextField error={auth.error} id="password" type="password" style={{ width: 300,color:'#ececec' }} value={auth.password} onChange={handleChange("password")}></TextField>
             </Grid>
             <Grid item >
                 <Button variant='contained' onClick={()=>{login();}}>Login</Button>

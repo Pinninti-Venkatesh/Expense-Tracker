@@ -12,7 +12,7 @@ exports.getTotalSavings = (req, res) => {
     .findOne()
     .sort({ createdAt: -1 })
     .exec((err, saving) => {
-      if (!err) {
+      if (!err&&saving) {
         return res.status(200).json({ total_savings: saving.total_savings });
       }
       return res
@@ -23,7 +23,7 @@ exports.getTotalSavings = (req, res) => {
 
 exports.getBalance=(req,res)=>{
 SalaryWallet.findOne().sort({createdAt:-1}).exec((err,salaryWallet)=>{
-  if(!err){
+  if(!err&&salaryWallet){
     return res.status(200).json({balance:salaryWallet.balance_left});
   }
   return res.status(500).json({response:err});

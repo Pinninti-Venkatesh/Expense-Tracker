@@ -48,7 +48,12 @@ const ExpensesCard = () => {
     }
     useEffect(() => {
         getTotalExpenses(authToken).then(res => {
-            setTotal(res.response[0].total);
+            if(res.response.length){
+                setTotal(res.response[0].total);
+            }
+            else{
+                setTotal(0);
+            }
         });
       }, []);
     return (
