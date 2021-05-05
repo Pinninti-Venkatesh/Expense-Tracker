@@ -17,7 +17,6 @@ const BillBoard = () => {
     <div className="billboard-container">
       <Grid
       container
-      justify="space-around"
       >
         {bills.map(bill=>{
           let validity=bill.validity;

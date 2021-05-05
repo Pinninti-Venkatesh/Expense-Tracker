@@ -9,6 +9,7 @@ router.post('/create/',addSalary);
 router.delete('/remove/',isSignedIn,removeSalary);
 
 router.get('/All',isSignedIn,getAllSalary);
-router.get('/getNetSalary',getNetSalary);
+
+router.get('/getNetSalary',isSignedIn,getNetSalary);
 
 module.exports=router;

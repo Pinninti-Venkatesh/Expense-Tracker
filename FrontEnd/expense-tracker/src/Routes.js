@@ -5,6 +5,7 @@ import login from './components/login/login';
 import NavBar from './components/NavBar';
 import PrivateRoute from './helper/PrivateRoutes';
 import './components/dashboard.scss'
+import CTCTab from './components/CTC/CTCTab';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -14,6 +15,7 @@ const Routes = () => {
                     <Route path='/' exact component={login} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
                     <PrivateRoute path='/bills' component={BillBoard} />
+                    <PrivateRoute path='/ctc' component={CTCTab} />
                 </Switch>
             </div>
         </BrowserRouter>

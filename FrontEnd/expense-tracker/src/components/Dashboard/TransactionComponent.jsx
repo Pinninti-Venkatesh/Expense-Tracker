@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import Grid from "@material-ui/core/Grid";
@@ -17,16 +17,30 @@ const useStyles = makeStyles({
         width: '20%'
     },
     Dbutton:{
-        display:'none',
-        transform:'width 2s'
+        // width:'20%',
+        transition:'2s',
+        animationName:'deleteButton',
+        animationDuration:'2s'
+        // animation-name: example;
+        // animation-duration: 4s;
     }
 });
 
 const TransactionComponent = ({ id, category, description, date, value, onDelete }) => {
     const classes = useStyles();
+    const [showDelete,setShowDelete]=useState(false);
     return (
         <React.Fragment>
-            <ListItem className={classes.list}>
+            <ListItem
+                onMouseEnter={()=>{
+                    setShowDelete(true);
+                }}
+                onMouseLeave={
+                    ()=>{
+                        setShowDelete(false);
+                    }
+                }
+            className={classes.list}>
                 <Grid container
                     direction="row"
                     justify="space-around"
@@ -38,7 +52,7 @@ const TransactionComponent = ({ id, category, description, date, value, onDelete
                     <Typography className={classes.textFields}>{date}</Typography>
                     <Typography className={classes.textFields}>₹ {value}</Typography>
                 </Grid>
-                <Button endIcon={<Delete/>} variant="outlined" color="secondary" onClick={() => { onDelete(id) }}>Delete</Button>
+                {showDelete &&<Button endIcon={<Delete/>} variant="contained" className={classes.Dbutton} color="secondary" onClick={() => { onDelete(id) }}>Delete</Button>}
             </ListItem>
             <Divider />
         </React.Fragment>

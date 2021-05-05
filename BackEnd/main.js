@@ -1,6 +1,7 @@
 const express = require('express');
 const  mongoose  = require('mongoose');
 const app=express();
+const formData=require('express-form-data');
 const cors = require('cors');
 const cookieParser=require("cookie-parser");
 const authRouter=require('./routes/auth');

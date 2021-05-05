@@ -1,6 +1,9 @@
 const mongoose=require('mongoose');
 
 const CTCSchema=new mongoose.Schema({
+    company_name:{
+        type:String
+    },
     basic_salary:{
         type:Number,
         required:true
@@ -9,6 +12,7 @@ const CTCSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    variable_pay:Number,
     provident_fund:{
         type:Number,
         required:true
@@ -21,27 +25,26 @@ const CTCSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
-    health_benfit:{
+    health_benefit:{
         type:Number,
     },
     insurance:{
         type:Number,
         required:true
     },
-    variable_pay:Number,
     annual_ctc:{
         type:Number,
         required:true
     },
     from:{
-        type:Date,
+        type:String,
         required:true
     },
     to:Date,
     doc:{
-        type:Buffer,
+        data:Buffer,
         contentType: String,
     }
-});
+},{strict:false});
 
 module.exports=mongoose.model('CTC',CTCSchema);

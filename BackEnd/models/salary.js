@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const salarySchema=new mongoose.Schema({
+    company_name:{
+        type:String
+    },
     month:{
         type:String
+    },
+    year:{
+        type:Number
     },
     basic:{
         type:Number,
@@ -19,21 +25,17 @@ const salarySchema=new mongoose.Schema({
         type:Number,
         required:true
     },
-    otherDeductions:{
-        type:Number,
-    },
     total_salary:{
         type:Number,
-        required:true
     },
     net_salary:{
         type:Number,
         required:true
     },
     doc:{
-        type:Buffer,
+        data:Buffer,
         contentType: String,
     }
-});
+},{strict:false});
 
 module.exports=mongoose.model("Salary",salarySchema,'Salary');

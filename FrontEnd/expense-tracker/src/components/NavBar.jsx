@@ -27,7 +27,7 @@ const NavBar = ({ history }) => {
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
         <BottomNavigationAction label="Bills" value="/bills" icon={<ReceiptIcon />} component={Link} to="/bills" />
         <BottomNavigationAction label="Dashboard" value="/dashboard" icon={<HomeIcon />} component={Link} to="/dashboard"/>
-        <BottomNavigationAction label="CTC" value="CTC" icon={<MoneyIcon />} />
+        <BottomNavigationAction label="CTC" value="/ctc" icon={<MoneyIcon />} component={Link} to="/ctc" />
         <BottomNavigationAction label="Signout" value="Signout" onClick={() => {
           signOut(() => {
             history.push("/");
