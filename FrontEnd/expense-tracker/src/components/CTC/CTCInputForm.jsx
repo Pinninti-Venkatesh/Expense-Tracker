@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CTCInputForm({ openDialog }) {
+export default function CTCInputForm({ openDialog,updatePanel}) {
     const classes = useStyles();
     const { authToken } = isAuthenticated();
     const handleChange = (name) => (event) => {
@@ -71,7 +71,6 @@ export default function CTCInputForm({ openDialog }) {
     }
     const [salary, setSalary] = useState({
         annual_ctc: parseInt(value.basic_salary)+parseInt(value.provident_fund)+parseInt(value.statutory_bonus)+parseInt(value.gratuity)+ parseInt(value.flexi_basket) + parseInt(value.variable_pay) + parseInt(value.health_benefit)+parseInt(value.insurance)
-
     })
     const [open, setOpen] = useState(openDialog.open);
     const handleClose = () => {
@@ -79,8 +78,8 @@ export default function CTCInputForm({ openDialog }) {
     };
     const submitSalary = () => {
         addCTC(authToken, formData).then(response => {
+            updatePanel(response.response);
             handleClose();
-            // window.location.reload();
         })
     }
     useEffect(() => {

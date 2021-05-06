@@ -16,11 +16,11 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
-      style={{height:'80vh'}}
+      style={{height:'92vh'}}
       {...other}
     >
       {value === index && (
-        <Box p={3} style={{height:'100%'}}>
+        <Box p={3} style={{ height: '100%',boxSizing:'border-box' }}>
           {children}
         </Box>
       )}
@@ -60,7 +60,10 @@ export default function CTCTab() {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default" style={
-          {backgroundColor:"#272c34"}
+        {
+          backgroundColor: "#272c34",
+          height: '8vh'
+        }
       }>
         <Tabs
           value={value}
@@ -76,10 +79,10 @@ export default function CTCTab() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <SalaryPanel/>
+        <SalaryPanel />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <CTCPanel/>
+        <CTCPanel />
       </TabPanel>
     </div>
   );

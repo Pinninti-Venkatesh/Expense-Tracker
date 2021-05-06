@@ -38,7 +38,7 @@ export default function InputForm({ openDialog }) {
         type: 'Expense',
         value: '',
         category: '',
-        SOE: '',
+        SOE: 'Salary',
         description: '',
         paydate: '',
         validity: '',
@@ -48,6 +48,11 @@ export default function InputForm({ openDialog }) {
     const handleClose = () => {
         setOpen(false);
     };
+    const validation=()=>{
+        for(const[key,value] of Object.entries(value)){
+
+        }
+    }
     const submitTransaction = () => {
         createTransaction(authToken, value).then(response => {
             handleClose();
@@ -78,7 +83,7 @@ export default function InputForm({ openDialog }) {
                         <Grid
                             container
                             direction="row"
-                            justify="space-between"
+                            justify="space-around"
                         >
                             <TextField
                                 id="type"
@@ -113,7 +118,7 @@ export default function InputForm({ openDialog }) {
                         <Grid
                             container
                             direction="row"
-                            justify="space-between"
+                            justify="space-around"
                             m={5}
                         >
                             <TextField

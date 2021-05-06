@@ -21,8 +21,8 @@ exports.addSalary = (req, res) => {
             err: "file size too big",
           });
         }
-        salary.doc.data = fs.readFileSync(files.doc.path);
-        salary.doc.contentType = files.doc.type;
+        salary.doc = fs.readFileSync(files.doc.path);
+        // salary.doc.contentType = files.doc.type;
         salary.save((err, salary) => {
           if (!err) {
             return res
@@ -47,7 +47,7 @@ exports.addSalary = (req, res) => {
 exports.removeSalary = (req, res) => {
   Salary.findOneAndDelete({ _id: req.body.id }, { sort: { createdAt: -1 } }, (err, ctc) => {
     if (!err) {
-      return res.status(200).json({ response: 'salary deleted' });
+      return res.status(200).json({ response: 'S' });
     }
     return res
       .status(500)

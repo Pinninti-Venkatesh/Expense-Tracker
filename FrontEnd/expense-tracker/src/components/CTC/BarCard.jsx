@@ -1,10 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles"
+import React, { useState } from 'react';
 import Paper from "@material-ui/core/Paper"
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
+import IconButton from "@material-ui/core/IconButton"
+import Delete from "@material-ui/icons/Delete"
 const styles = makeStyles({
     cardContent:{
         display:'flex',
@@ -14,20 +16,43 @@ const styles = makeStyles({
     },
     card:{
         // height:'8%',
-        width:'85%',
+        display:'flex',
+        flexDirection:'row',
+        width:'90%',
         marginBottom:'20px'
     },
     typography:{
         margin:0,
-
+    },
+    buttonHidden:{
+        visibility: 'hidden',
+        opacity: 0,
+        transition: 'visibility 1s, width 0.5s,opacity 1s linear',
+    },
+    buttonAppear:{
+        visibility: 'visible',
+        opacity: 1,
+        transition: 'width 0.5s,opacity 1s,visibility 1s linear',
     }
 })
-const BarCard = ({name,month,year,id,selectSlip}) => {
+const BarCard = ({name,month,year,id,onSelect,onDelete}) => {
     const classes=styles();
+    const [showDelete,setShowDelete]=useState(false);
+
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card}
+        onMouseEnter={()=>{
+            setShowDelete(true);
+        }}
+        onMouseLeave={
+            ()=>{
+                setShowDelete(false);
+            }
+        }
+        >
+            
         <CardActionArea onClick={()=>{
-            selectSlip(id);
+            onSelect(id);
         }}>
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom className={classes.typography}>
@@ -44,6 +69,9 @@ const BarCard = ({name,month,year,id,selectSlip}) => {
                 </div>
             </CardContent>
         </CardActionArea>
+        <IconButton variant="outlined" color="secondary" className={showDelete?classes.buttonAppear:classes.buttonHidden}  onClick={() => { onDelete(id) }}>
+                <Delete/>
+        </IconButton>
     </Card>
     );
 }

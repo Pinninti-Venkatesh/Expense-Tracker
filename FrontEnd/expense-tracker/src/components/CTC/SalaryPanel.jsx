@@ -3,45 +3,53 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles"
 import Paper from "@material-ui/core/Paper"
 import BarCard from './BarCard';
-import { getAllSalary } from "./helper/apicalls";
+import { getAllSalary, removeSalary } from "./helper/apicalls";
 import { isAuthenticated } from "../auth";
 import Typography from "@material-ui/core/Typography";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
 import InputForm from "./SalaryInputForm";
-import Divider from "@material-ui/core/Divider";
+import GetAppIcon from '@material-ui/icons/GetApp';
+import IconButton from '@material-ui/core/IconButton';
 const styles = makeStyles({
     root: {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        boxSizing: 'border-box'
     },
     salaryComps: {
-        width: '50%',
+        width: '55%',
         overflow: 'scroll',
         height: '100%'
     },
     paperComp: {
-        width: '50%',
+        width: '45%',
     },
     Fab: {
         position: 'absolute',
-        right: 20,
-        bottom: 20
+        right: '3%',
+        bottom: '5%'
     },
     paper: {
         height: "100%",
     },
     paperGrid: {
-        margin:'25px 0',
-        height:'80%'
+        margin: '25px 0 0 0',
+        height: '70%'
     },
-    textField:{
-        fontSize:17,
-        margin:'5px 0'
+    textField: {
+        fontSize: 17,
+        margin: '5px 0'
     },
-    boldTextField:{
-        fontSize:17,
-        fontWeight:500
+    boldTextField: {
+        fontSize: 17,
+        fontWeight: 500
+    },
+    downloadIcon:{
+        position:'absolute',
+        top:0,
+        right:0,
+        padding:'6px'
     }
 })
 const SalaryPanel = () => {
@@ -57,9 +65,10 @@ const SalaryPanel = () => {
         PF: 0,
         tax: 0,
         deductions: 0,
-        net_salary: 0
+        net_salary: 0,
+        doc: ''
     });
-    const [paperDisplay,setPaperDisplay]=useState("none");
+    const [paperDisplay, setPaperDisplay] = useState("none");
     const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const { authToken } = isAuthenticated();
     const [form, setForm] = useState({
@@ -70,13 +79,42 @@ const SalaryPanel = () => {
         getAllSalary(authToken).then(res => {
             setSalaries(res.response);
         })
-    }, []);
+    }, [salaries]);
+    const downloadDoc = doc => {
+        console.log('file', doc);
+        var a = document.createElement("a");
+        var dataURI = "data:" + "application/pdf" +
+            ";base64," +doc;
+        a.href = dataURI;
+        a['download'] = "payslip-"+paper.YearMonth+".pdf";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    const updateSalary=newSalary=>{
+        console.log('in here',newSalary);
+        let updatedsalary=salaries;
+        updatedsalary.push(newSalary);
+        setSalaries(updatedsalary);
+    }
+
     const selectSlip = id => {
         salaries.forEach(salary => {
             if (salary._id == id) {
                 setPaperDisplay("block");
                 setPaper(salary);
                 return;
+            }
+        })
+    }
+    const deletePaySlip=id=>{
+        removeSalary({id},authToken).then(res=>{
+            if(res.response=='S'){
+                let updatedSalary=salaries.filter(salary=>{
+                    return salary._id!=id;
+                });
+                setSalaries(updatedSalary);
             }
         })
     }
@@ -87,25 +125,11 @@ const SalaryPanel = () => {
             className={classes.root}>
             <div className={classes.salaryComps}>
                 {salaries.map(salary => {
-                    // var blob = new Blob([salary.doc.data], { type: "application/pdf" });
-                    // const link = document.createElement('a');
-                    // // Browsers that support HTML5 download attribute
-                    // if (link.download !== undefined) {
-                    //     const url = URL.createObjectURL(blob);
-                    //     link.setAttribute('href', url);
-                    //     link.setAttribute('download', "test");
-                    //     link.style.visibility = 'hidden';
-                    //     document.body.appendChild(link);
-                    //     link.click();
-                    //     document.body.removeChild(link);
-                    // }
-                    // var objectUrl = URL.createObjectURL(blob);
-                    // window.open(objectUrl);
-                    return <BarCard selectSlip={selectSlip} name={salary.company_name} year={(salary.YearMonth).substr(0, 4)} month={months[parseInt((salary.YearMonth).substr(5, 7))]} id={salary._id} />
+                    return <BarCard onDelete={deletePaySlip} onSelect={selectSlip} name={salary.company_name} year={(salary.YearMonth).substr(0, 4)} month={months[parseInt((salary.YearMonth).substr(5, 7))]} id={salary._id} />
                 })}
             </div>
             <div className={classes.paperComp}>
-                <Paper className={classes.paper} style={{display:paperDisplay}}>
+                <Paper className={classes.paper} style={{ display: paperDisplay }}>
                     <Typography align="center" variant="h4">
                         {paper.company_name}
                     </Typography>
@@ -177,6 +201,9 @@ const SalaryPanel = () => {
                             </Typography>
                         </div>
                     </Grid>
+                    <IconButton  className={classes.downloadIcon}variant="outlined" onClick={() => { downloadDoc(paper.doc) }}>
+                        <GetAppIcon />
+                    </IconButton>
                 </Paper>
             </div>
             <Fab color="secondary" aria-label="edit" className={classes.Fab} onClick={() => {
@@ -184,7 +211,7 @@ const SalaryPanel = () => {
             }}>
                 <EditIcon />
             </Fab>
-            <InputForm key={form} openDialog={form} />
+            <InputForm updatePanel={updateSalary} key={form} openDialog={form} />
         </Grid>
     );
 }

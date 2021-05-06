@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton"
 import Delete from "@material-ui/icons/Delete"
+import '../dashboard.scss';
 const useStyles = makeStyles({
     list: {
         color: '#fff',
@@ -16,13 +17,15 @@ const useStyles = makeStyles({
     textFields: {
         width: '20%'
     },
-    Dbutton:{
-        // width:'20%',
-        transition:'2s',
-        animationName:'deleteButton',
-        animationDuration:'2s'
-        // animation-name: example;
-        // animation-duration: 4s;
+    buttonHidden:{
+        visibility: 'hidden',
+        opacity: 0,
+        transition: 'visibility 1s, width 0.5s,opacity 1s linear',
+    },
+    buttonAppear:{
+        visibility: 'visible',
+        opacity: 1,
+        transition: 'width 0.5s,opacity 1s,visibility 1s linear',
     }
 });
 
@@ -52,7 +55,10 @@ const TransactionComponent = ({ id, category, description, date, value, onDelete
                     <Typography className={classes.textFields}>{date}</Typography>
                     <Typography className={classes.textFields}>₹ {value}</Typography>
                 </Grid>
-                {showDelete &&<Button endIcon={<Delete/>} variant="contained" className={classes.Dbutton} color="secondary" onClick={() => { onDelete(id) }}>Delete</Button>}
+                <IconButton variant="outlined" color="secondary" className={showDelete?classes.buttonAppear:classes.buttonHidden}  onClick={() => { onDelete(id) }}>
+                <Delete/>
+                </IconButton>
+                {/* {<Button endIcon={<Delete/>} className={showDelete?classes.buttonAppear:classes.buttonHidden} variant="contained" color="secondary" onClick={() => { onDelete(id) }}></Button>} */}
             </ListItem>
             <Divider />
         </React.Fragment>

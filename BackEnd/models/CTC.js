@@ -42,8 +42,8 @@ const CTCSchema=new mongoose.Schema({
     },
     to:Date,
     doc:{
-        data:Buffer,
-        contentType: String,
+        // data:Buffer,
+        // contentType: String,
     }
 },{strict:false});
 

@@ -33,8 +33,8 @@ const salarySchema=new mongoose.Schema({
         required:true
     },
     doc:{
-        data:Buffer,
-        contentType: String,
+        // data:Buffer,
+        // contentType: String,
     }
 },{strict:false});
 

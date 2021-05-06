@@ -23,13 +23,14 @@ exports.addCTC = (req, res) => {
             err: "file size too big",
           });
         }
-        ctc.doc.data = fs.readFileSync(files.doc.path);
-        ctc.doc.contentType = files.doc.type;
+        ctc.doc = fs.readFileSync(files.doc.path);
+        // ctc.doc.contentType = files.doc.type;
         ctc.save((err, ctc) => {
           if (!err) {
             return res
               .status(200)
               .json({ response: ctc });
+              
           }
           return res
             .status(500)
@@ -52,7 +53,7 @@ exports.removeCTC = (req, res) => {
     { sort: { createdAt: -1 } },
     (err, ctc) => {
       if (!err) {
-        return res.status(200).json(response("S", "ctc deleted"));
+        return res.status(200).json({response:"S"});
       }
       return res
         .status(500)

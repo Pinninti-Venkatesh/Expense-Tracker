@@ -62,3 +62,35 @@ export const getAllCTC=token=>{
         console.log('error in getAllCTC',err);
     })
 }
+
+export const removeSalary=(id,token)=>{
+    return fetch(`${API}salary/remove`,{
+        method:'DELETE',
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token}`
+        },
+        body:JSON.stringify(id)
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in removeCTC',err);
+    })
+}
+
+export const removeCTC=(id,token)=>{
+    return fetch(`${API}ctc/remove`,{
+        method:'DELETE',
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token}`
+        },
+        body:JSON.stringify(id)
+    }).then(response=>{
+        return response.json();
+    }).catch(err=>{
+        console.log('error in removeCTC',err);
+    })
+}

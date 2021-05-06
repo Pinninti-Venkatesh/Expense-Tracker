@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function InputForm({ openDialog }) {
+export default function InputForm({ openDialog ,updatePanel}) {
     const classes = useStyles();
     const { authToken } = isAuthenticated();
     const handleChange = (name) => (event) => {
@@ -81,6 +81,7 @@ export default function InputForm({ openDialog }) {
     };
     const submitSalary = () => {
         addSalary(authToken, formData).then(response => {
+            updatePanel(response.response);
             handleClose();
             // window.location.reload();
         })
@@ -121,7 +122,7 @@ export default function InputForm({ openDialog }) {
                             style={{ margin: '10px 0' }}
                         >
                             <TextField id="CompanyName" className={classes.textField}
-                                label="Company Name" value={value.company_name} onChange={handleChange("YearMonth")} />
+                                label="Company Name" value={value.company_name} onChange={handleChange("company_name")} />
                             <TextField id="YearMonth" type="month" className={classes.textField}
                                 label="YearMonth" value={value.YearMonth} onChange={handleChange("YearMonth")} />
                             <TextField id="Basic" className={classes.textField}
