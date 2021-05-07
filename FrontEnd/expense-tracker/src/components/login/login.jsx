@@ -10,17 +10,16 @@ const Login = () => {
         setAuth({ [name]: event.target.value });
     };
     const [auth, setAuth] = useState({
-        email: 'venky@gmail.com',
-        password: '123456',
+        password: 'obsidian Fury',
         error:false,
         redirect:false
     });
-    const {email,password}=auth;
+    const {password}=auth;
     if(auth.redirect){
         return <Redirect to='/dashboard' />
     }
     let login=event=>{
-        signIn({email,password}).then(response=>{
+        signIn({password}).then(response=>{
             if(response.error){
                 setAuth({...auth,error:true});
                 return;

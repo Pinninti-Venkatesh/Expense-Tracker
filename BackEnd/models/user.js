@@ -7,24 +7,6 @@ const {v4 : uuidv4} = require('uuid')
 
 var userSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      maxlength: 32,
-      trim: true,
-    },
-    lastname: {
-      type: String,
-      maxlength: 32,
-      trim: true,
-    },
-    email: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: true,
-    },
-    //TODO: come back here
     encry_password: {
       type: String,
       required: true,

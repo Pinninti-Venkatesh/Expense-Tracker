@@ -7,6 +7,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import HomeIcon from '@material-ui/icons/Home';
 import MoneyIcon from "@material-ui/icons/Money";
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { signOut } from './auth'
 const useStyles = makeStyles({
   root: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
 
 const NavBar = ({ history }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState('/dashboard');
+  const [value, setValue] = React.useState(window.location.pathname);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -26,8 +27,9 @@ const NavBar = ({ history }) => {
       return (
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
         <BottomNavigationAction label="Bills" value="/bills" icon={<ReceiptIcon />} component={Link} to="/bills" />
-        <BottomNavigationAction label="Dashboard" value="/dashboard" icon={<HomeIcon />} component={Link} to="/dashboard"/>
         <BottomNavigationAction label="CTC" value="/ctc" icon={<MoneyIcon />} component={Link} to="/ctc" />
+        <BottomNavigationAction label="Dashboard" value="/dashboard" icon={<HomeIcon />} component={Link} to="/dashboard"/>
+        <BottomNavigationAction label="Settings" value="/settings" icon={<SettingsIcon />} component={Link} to="/settings" />
         <BottomNavigationAction label="Signout" value="Signout" onClick={() => {
           signOut(() => {
             history.push("/");
