@@ -132,7 +132,7 @@ const CTCPanel = () => {
         var dataURI = "data:" + "application/pdf" +
             ";base64," +doc;
         a.href = dataURI;
-        a['download'] = "Payslip-"+paper.from+".pdf";
+        a['download'] = "CTC-"+paper.from+".pdf";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

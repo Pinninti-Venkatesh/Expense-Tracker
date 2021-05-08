@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
@@ -14,51 +14,53 @@ import { isAuthenticated } from '../auth';
 const useStyles = makeStyles({
     root: {
         margin: 5,
-        width:'90%',
-        backgroundColor:'#495766',
-        color:'#fff'
+        width: '90%',
+        backgroundColor: '#495766',
+        color: '#fff'
     },
     balance: {
         display: 'flex',
         justifyContent: 'space-between'
-      },
-    chip:{
-        margin:'0 5px'
     },
-    money:{
-        marginBottom:0,
-        marginTop:5
-      }  
+    chip: {
+        margin: '0 5px',
+        color: '#fff',
+        borderColor: '#fff'
+    },
+    money: {
+        marginBottom: 0,
+        marginTop: 5
+    }
 });
 
 const ExpensesCard = () => {
     const classes = useStyles();
-    const {authToken}=isAuthenticated();
-    const[total,setTotal]=useState('737387');
-    const handleChipClick=p=>{
+    const { authToken } = isAuthenticated();
+    const [total, setTotal] = useState(0);
+    const handleChipClick = p => {
         console.log(p);
-        let routeName=p=='D'?'dailyExpenses':p=='W'?'weeklyExpenses':'monthlyExpenses';
+        let routeName = p == 'D' ? 'dailyExpenses' : p == 'W' ? 'weeklyExpenses' : 'monthlyExpenses';
         console.log(routeName);
-        getPeriodExpenses(authToken,routeName).then(res=>{
-            if(res.response.length){
+        getPeriodExpenses(authToken, routeName).then(res => {
+            if (res.response.length) {
                 setTotal(res.response[0].total);
             }
-            else{
+            else {
                 setTotal(0);
             }
-            
+
         });
     }
     useEffect(() => {
         getTotalExpenses(authToken).then(res => {
-            if(res.response.length){
+            if (res.response.length) {
                 setTotal(res.response[0].total);
             }
-            else{
+            else {
                 setTotal(0);
             }
         });
-      }, []);
+    }, []);
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -66,9 +68,9 @@ const ExpensesCard = () => {
                     Expenses
                     <Grid item >
                         <Chip
-                        className={classes.chip}
+                            className={classes.chip}
                             label="D"
-                            onClick={()=>{
+                            onClick={() => {
                                 handleChipClick('D');
                             }}
                             m={1}
@@ -76,18 +78,18 @@ const ExpensesCard = () => {
                             variant="outlined"
                         />
                         <Chip
-                        className={classes.chip}
+                            className={classes.chip}
                             label="W"
-                            onClick={()=>{
+                            onClick={() => {
                                 handleChipClick('W');
                             }}
                             size="small"
                             variant="outlined"
                         />
                         <Chip
-                        className={classes.chip}
+                            className={classes.chip}
                             label="M"
-                            onClick={()=>{
+                            onClick={() => {
                                 handleChipClick('M');
                             }}
                             size="small"
@@ -96,7 +98,7 @@ const ExpensesCard = () => {
                     </Grid>
                 </Typography>
                 <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-                    ₹ {total}
+                    ₹ {(total).toFixed(2)}
                 </Typography>
             </CardContent>
         </Card>

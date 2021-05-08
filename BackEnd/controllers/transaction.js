@@ -2,7 +2,6 @@ const Savings = require("../models/savings");
 const Transactions = require("../models/Transactions");
 const Bills = require("../models/bills");
 const SalaryWallet = require("../models/SalaryWallet");
-const salary = require("../models/salary");
 
 
 exports.createTransaction = async (req, res) => {

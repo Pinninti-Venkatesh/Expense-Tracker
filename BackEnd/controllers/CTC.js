@@ -63,7 +63,7 @@ exports.removeCTC = (req, res) => {
 };
 
 exports.getAllCTC = (req, res) => {
-  CTC.find().exec((err, allctc) => {
+  CTC.find().sort({createdAt:-1}).exec((err, allctc) => {
     if (!err) {
       return res.status(200).json({response:allctc});
     }

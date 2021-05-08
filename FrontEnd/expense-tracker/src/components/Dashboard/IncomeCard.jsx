@@ -19,7 +19,8 @@ const useStyles = makeStyles({
     justifyContent: 'space-between'
   },
   chip:{
-    color:'white'
+    color:'#fff',
+    borderColor:'#fff'
   },
   money: {
     marginBottom: 0,
@@ -57,8 +58,8 @@ export default function IncomeCard() {
           {/* <Chip label={incomeData.days} /> */}
         </Typography>
         <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-            ₹ {7485485}
-            {/* ₹ {(incomeData.income).toFixed(2)} */}
+            {/* ₹ {7485485} */}
+            ₹ {(incomeData.income).toFixed(2)}
         </Typography>
       </CardContent>
     </Card>

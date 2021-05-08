@@ -97,8 +97,10 @@ const SalaryPanel = () => {
         open: false
     });
     useEffect(() => {
-        getAllSalary(authToken).then(res => {
-            setSalaries(res.response);
+        getAllSalary(authToken).then(res=> {
+            if(res.response){
+                setSalaries(res.response);
+            }
         })
     }, [salaries]);
     const downloadDoc = doc => {

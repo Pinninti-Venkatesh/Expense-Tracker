@@ -1,4 +1,4 @@
-const Salary = require("../models/salary");
+const PaySlip = require("../models/PaySlip");
 const formidable = require("formidable");
 const fs = require("fs");
 // const { response } = require("../mods/response");
@@ -14,7 +14,7 @@ exports.addSalary = (req, res) => {
         res.status(400).json({ err: 'error with the image' });
         throw err
       }
-      let salary = new Salary(fields);
+      let salary = new PaySlip(fields);
       if (files.doc) {
         if (files.doc.size > 3000000) {
           return res.status(400).json({
@@ -45,7 +45,7 @@ exports.addSalary = (req, res) => {
 };
 
 exports.removeSalary = (req, res) => {
-  Salary.findOneAndDelete({ _id: req.body.id }, { sort: { createdAt: -1 } }, (err, ctc) => {
+  PaySlip.findOneAndDelete({ _id: req.body.id }, { sort: { createdAt: -1 } }, (err, ctc) => {
     if (!err) {
       return res.status(200).json({ response: 'S' });
     }
@@ -56,21 +56,22 @@ exports.removeSalary = (req, res) => {
 };
 
 exports.getNetSalary = (req, res) => {
-  Salary.findOne()
+  PaySlip.findOne()
     .sort({ createdAt: -1 }).exec((err, salary) => {
-      if (!err) {
+      console.log(salary);
+      if (!err&&salary) {
         return res
           .status(200)
-          .json({ response: salary.net_salary });
+          .json({ response: salary['net_salary']?salary.net_salary:0 });
       }
       return res
         .status(500)
-        .json({ response: err });
+        .json({ response: 0 });
     })
 }
 
 exports.getAllSalary = (req, res) => {
-  Salary.find().exec((err, allSalary) => {
+  PaySlip.find().sort({createdAt:-1}).exec((err, allSalary) => {
     if (!err) {
       return res.status(200).json({ response: allSalary });
     }

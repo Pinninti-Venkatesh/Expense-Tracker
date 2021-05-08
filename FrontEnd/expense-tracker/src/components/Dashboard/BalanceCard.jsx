@@ -48,16 +48,18 @@ const useStyles = makeStyles({
 });
 
 export default function BalanceCard() {
-    const [balance, setBalance] = useState(0);
+    const [balance, setBalance] = useState(0.00);
     const classes = useStyles();
     const [form, setForm] = useState({
-        toggle:true,
-        open:false
+        toggle: true,
+        open: false
     });
     const { authToken } = isAuthenticated();
     useEffect(() => {
         loadBalance(authToken).then(data => {
-            setBalance(data.balance);
+            if (data.balance) {
+                setBalance(data.balance);
+            }
         });
     }, []);
     return (
@@ -72,7 +74,7 @@ export default function BalanceCard() {
                     Balance
                 </Typography>
                 <Typography variant="h5" className={classes.money} component="h2">
-                    ₹ {balance}
+                    ₹ {(balance).toFixed(2)}
                 </Typography>
             </Grid>
             <Grid item className={classes.button}>
@@ -81,7 +83,7 @@ export default function BalanceCard() {
                     <EditIcon  />
                 </Fab> */}
                 <IconButton aria-label="delete" className={classes.button} size="small" onClick={() => {
-                    setForm({toggle:!form.toggle,open:true});
+                    setForm({ toggle: !form.toggle, open: true });
                 }}>
                     <AddBoxIcon fontSize="inherit" />
                 </IconButton>

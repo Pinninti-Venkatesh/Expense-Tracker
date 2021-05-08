@@ -36,6 +36,6 @@ const salarySchema=new mongoose.Schema({
         // data:Buffer,
         // contentType: String,
     }
-},{strict:false});
+},{timestamps:true,strict:false});
 
-module.exports=mongoose.model("Salary",salarySchema,'Salary');
+module.exports=mongoose.model("PaySlip",salarySchema,'PaySlip');

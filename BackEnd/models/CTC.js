@@ -45,6 +45,6 @@ const CTCSchema=new mongoose.Schema({
         // data:Buffer,
         // contentType: String,
     }
-},{strict:false});
+},{timestamps:true,strict:false});
 
 module.exports=mongoose.model('CTC',CTCSchema);

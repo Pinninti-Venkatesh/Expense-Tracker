@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 const SavingsCard = () => {
     const classes = useStyles();
     const {authToken}=isAuthenticated();
-    const[total,setTotal]=useState(737387);
+    const[total,setTotal]=useState(0);
     useEffect(() => {
         getTotalSavings(authToken).then(res => {
             {/* ₹ {(incomeData.income).toFixed(2)} */}
@@ -47,8 +47,7 @@ const SavingsCard = () => {
                     Savings
                 </Typography>
                 <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-                    {/* ₹ 75943 */}
-                    ₹ {total}
+                    ₹ {(total).toFixed(2)}
                 </Typography>
             </CardContent>
         </Card>
