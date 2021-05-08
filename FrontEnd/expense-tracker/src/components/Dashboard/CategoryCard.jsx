@@ -4,13 +4,20 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     card: {
-        height: '40%',
-        width:'25%',
-        margin:'10px  20px',
+        [theme.breakpoints.down('md')]:{
+            width: '38%', 
+            margin: '10px  20px',
+            height: '45%',
+        },
+        [theme.breakpoints.up('md')]: {
+            margin: '10px  20px',
+            height: '40%',
+            width: '25%',
+        },
         backgroundColor:'#495766',
-    color:'#fff'
+        color:'#fff'
     },
     head: {
         display: 'flex',
@@ -27,7 +34,7 @@ const useStyles = makeStyles({
         marginBottom: 0,
         marginTop: 5
     }
-});
+}));
 
 const CategoryCard = ({name,total}) => {
     const classes = useStyles();

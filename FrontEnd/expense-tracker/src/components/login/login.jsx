@@ -10,7 +10,7 @@ const Login = () => {
         setAuth({ [name]: event.target.value });
     };
     const [auth, setAuth] = useState({
-        password: 'obsidian Fury',
+        password: 'agatha harkness',
         error:false,
         redirect:false
     });
@@ -47,7 +47,7 @@ const Login = () => {
             }}
             spacing={3}
         >
-            <Grid item>
+            <Grid item> 
                 <Typography variant="h1">Say the Magic Word</Typography>
             </Grid>
             <Grid item >

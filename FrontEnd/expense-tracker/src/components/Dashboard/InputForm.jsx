@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        height: 150,
+        height: 200,
         // backgroundColor:'#495766',
         // direction: 'row'
     },

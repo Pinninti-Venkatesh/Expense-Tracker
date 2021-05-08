@@ -43,8 +43,13 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    [theme.breakpoints.up('md')]:{
+      width: '93vw',
+    },
+    [theme.breakpoints.down('md')]:{
+      width: '100%',
+    },
     flexGrow: 1,
-    width: '93vw',
     backgroundColor: "#272c34"
   },
 }));

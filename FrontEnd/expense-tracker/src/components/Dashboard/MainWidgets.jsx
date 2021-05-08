@@ -3,22 +3,30 @@ import ExpensesCard from './ExpensesCard';
 import IncomeCard from './IncomeCard';
 import SavingsCard from './SavingsCard';
 import Grid from '@material-ui/core/Grid';
+import {makeStyles} from "@material-ui/core/styles";
+const styles=makeStyles((theme)=>({
+    root:{
+        flexDirection:'column',
+        justifyContent:'space-evenly',
+        alignItems:'center',
 
-class MainWidgets extends Component {
-    state = {}
-    render() {
+        [theme.breakpoints.up('md')]:{
+            height:'85vh'
+        }
+    }
+}))
+
+const MainWidgets = () => {
+    const classes=styles();
         return (
-                <Grid container direction="column"
-                    justify="space-evenly"
-                    alignItems="center"
-                    style={{height:'85vh'}}
+                <Grid container
+                className={classes.root}
                 >
                 <IncomeCard />
                 <ExpensesCard />
                 <SavingsCard />
                 </Grid>
         );
-    }
 }
-
+ 
 export default MainWidgets;
