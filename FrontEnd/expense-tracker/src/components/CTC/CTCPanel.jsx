@@ -11,19 +11,37 @@ import EditIcon from "@material-ui/icons/Edit";
 import CTCInputForm from './CTCInputForm';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import IconButton from '@material-ui/core/IconButton';
-const styles = makeStyles({
+const styles = makeStyles((theme)=>({
     root: {
-        height: '100%',
-        width: '100%',
-        boxSizing:'border-box'
+        [theme.breakpoints.up('md')]:{
+            flexDirection:'row',
+            height: '100%',
+            width: '100%',
+            boxSizing:'border-box'
+        },
+        [theme.breakpoints.down('md')]:{
+            flexDirection:'column',
+            width: '100%',
+            boxSizing:'border-box'
+        },
     },
     salaryComps: {
-        width: '55%',
+        [theme.breakpoints.up('md')]:{
+            width: '55%',
+        },
+        [theme.breakpoints.down('md')]:{
+            width: '100%',
+        },
         overflow: 'scroll',
         height: '100%'
     },
     paperComp: {
-        width: '45%',
+        [theme.breakpoints.up('md')]:{
+            width: '45%',
+        },
+        [theme.breakpoints.down('md')]:{
+            width: '100%',
+        },
     },
     Fab: {
         position: 'absolute',
@@ -31,7 +49,9 @@ const styles = makeStyles({
         bottom: 20
     },
     paper: {
-        height: "100%",
+        [theme.breakpoints.up('md')]:{
+            height: "100%",
+        },
         position:'relative'
     },
     paperGrid: {
@@ -51,7 +71,7 @@ const styles = makeStyles({
         right:0,
         padding:'6px'
     }
-})
+}))
 const CTCPanel = () => {
     const classes = styles();
     const [ctc, setctc] = useState([]);
@@ -120,7 +140,6 @@ const CTCPanel = () => {
     return (
         <Grid
             container
-            direction="row"
             className={classes.root}>
             <div className={classes.salaryComps}>
             {ctc.map(ctc => {

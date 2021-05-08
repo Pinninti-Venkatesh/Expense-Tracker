@@ -42,7 +42,7 @@ const SettingsHome = () => {
                 container
                 direction="column"
                 justify="space-evenly"
-                style={{ height: '300px', width: '300px', color: '#fff',margin:'auto' }}
+                style={{ height: '300px', width: '300px', color: '#fff',margin:'20px auto' }}
             >
                 <TextField error={error.oldPassword} label="Old Password" type="password" value={password.oldPassword} onChange={handleChange("oldPassword")}></TextField>
                 <TextField error={error.newPassword} label="New Password" type="password" value={password.newPassword} onChange={handleChange("newPassword")}></TextField>

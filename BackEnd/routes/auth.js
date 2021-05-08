@@ -5,7 +5,6 @@ const router=express.Router();
 router.get('/signout',signout);
 
 router.post('/signin',signin);
-// router.post('changepassword',isSignedIn,changePassword);
-router.post('/changepassword',changePassword);
+router.post('changepassword',isSignedIn,changePassword);
 
 module.exports=router;

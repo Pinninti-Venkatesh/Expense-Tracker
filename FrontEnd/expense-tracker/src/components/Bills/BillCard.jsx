@@ -5,13 +5,15 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
   root: {
-    // width:
-    margin: 15,
-    // width: '90%',
-    // width:'auto',
+    [theme.breakpoints.down('md')]:{
+      width:'90%',
+    },
+    [theme.breakpoints.up('md')]:{
     width: '20%',
+    },
+    margin: 15,
     backgroundColor: '#495766',
     display: 'inline-block',
     color: '#fff'
@@ -30,7 +32,7 @@ const useStyles = makeStyles({
     marginBottom: 25,
     marginTop: 15
   }
-});
+}));
 
 const BillCard = ({name,value,validity,nextPayDate}) => {
   const classes = useStyles();

@@ -4,7 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import BillCard from './BillCard';
 import { getBills } from './helper/apicalls';
 import { isAuthenticated } from '../auth';
-
+const styles=makeStyles((theme)=>({
+  root:{
+    [theme.breakpoints.down('md')]:{
+      flexDirection:'column'
+    },
+    [theme.breakpoints.up('md')]:{
+      flexDirection:'row'
+    },
+  }
+}))
 const BillBoard = () => {
   const [bills,setBills]=useState([]);
   const{authToken}=isAuthenticated();
@@ -13,10 +22,12 @@ const BillBoard = () => {
         setBills(res.response);
       });
   },[])
+  const classes=styles();
   return (
     <div className="billboard-container">
       <Grid
       container
+      className={classes.root}
       >
         {bills.map(bill=>{
           let validity=bill.validity;

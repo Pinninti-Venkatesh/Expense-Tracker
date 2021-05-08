@@ -18,7 +18,7 @@ const styles = makeStyles({
         // height:'8%',
         display:'flex',
         flexDirection:'row',
-        width:'90%',
+        width:'95%',
         marginBottom:'20px'
     },
     typography:{

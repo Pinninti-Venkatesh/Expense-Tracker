@@ -8,18 +8,12 @@ import CardContent from "@material-ui/core/CardContent";
 import { isAuthenticated } from '../auth';
 import { getCategoricalExpenses } from '../Dashboard/helper/apicalls'
 import CategoryCard from './CategoryCard';
-const useStyles = makeStyles({
-    card: {
-        height: '45%',
-        width: '25%',
-        margin: '10px  20px'
-    },
+const useStyles = makeStyles((theme)=>({
     head: {
         display: 'flex',
         justifyContent: 'space-between',
         color: '#fff',
         margin: '0 10px',
-
     },
     chip: {
         margin: '0 5px',
@@ -29,7 +23,7 @@ const useStyles = makeStyles({
         marginBottom: 0,
         marginTop: 5
     }
-});
+}));
 const CategoryMod = () => {
     const classes = useStyles();
     const handleChipClick = p => {
@@ -130,7 +124,7 @@ const CategoryMod = () => {
                     overflow: 'scroll',
                     height: '85%'
                 }}
-                justify="flex-start"
+                justify="space-around"
 
             >
                 {cardsJSON.map(cat => {

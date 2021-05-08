@@ -1,57 +1,54 @@
-div .MuiBottomNavigation-root {
-    height: 100vh;
-    width: 7vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #fff;
-    border-right: black 2px solid;
-    background-color: #272c34;
-
-}
-.MuiBottomNavigationAction-root{
-    padding:0 !important
-}
-@keyframes deleteButton{
-    from{ transform: scaleX(-100%);
-    }
-    to{transform: scaleX(0%);}
-}
-.dashboard-container {
+@media only screen and (max-width: 600px) {
+  .dashboard-container {
     ::-webkit-scrollbar {
-        display: none;
-    }
-    height:100vh;
-    display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
-    .billboard-container{
-        width: 93vw;
+      display: none;
     }
     .main-widget-mod {
         box-sizing: border-box;
-        width: 23vw;
-        // background-color: white;
+      }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .MuiBottomNavigationAction-root {
+    padding: 0 !important;
+  }
+  .dashboard-container {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    .billboard-container {
+      width: 93vw;
+    }
+    .main-widget-mod {
+      box-sizing: border-box;
+      width: 23vw;
+      // background-color: white;
     }
     .cat-trans-mod {
+      // border: black 2px solid;
+      width: 70vw;
+      box-sizing: border-box;
+      height: 100vh;
+      .category-mod {
         // border: black 2px solid;
-        width: 70vw;
         box-sizing: border-box;
-        height: 100vh;
-        .category-mod {
-            // border: black 2px solid;
-            box-sizing: border-box;
-            width: 100%;
-            height: 50%;
-        }
-        .transaction-mod {
-            // border: black 2px solid;
-            width: 100%;
-            box-sizing: border-box;
-            height: 50%;
-        }
-        ::-webkit-scrollbar {
-            display: none;
-        }
+        width: 100%;
+        height: 50%;
+      }
+      .transaction-mod {
+        // border: black 2px solid;
+        width: 100%;
+        box-sizing: border-box;
+        height: 50%;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
     }
+  }
 }

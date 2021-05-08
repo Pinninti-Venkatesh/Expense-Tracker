@@ -17,12 +17,20 @@ const useStyles = makeStyles({
     textFields: {
         width: '20%'
     },
+    date:{
+        width:'12%'
+    },
+    description:{
+        width:'28%'
+    },
     buttonHidden:{
+        padding:0,
         visibility: 'hidden',
         opacity: 0,
         transition: 'visibility 1s, width 0.5s,opacity 1s linear',
     },
     buttonAppear:{
+        padding:0,
         visibility: 'visible',
         opacity: 1,
         transition: 'width 0.5s,opacity 1s,visibility 1s linear',
@@ -51,8 +59,8 @@ const TransactionComponent = ({ id, category, description, date, value, onDelete
                     className={classes.list}
                 >
                     <Typography className={classes.textFields}>{category}</Typography>
-                    <Typography className={classes.textFields} noWrap={true}>{description}</Typography>
-                    <Typography className={classes.textFields}>{date}</Typography>
+                    <Typography className={classes.description} noWrap={true}>{description}</Typography>
+                    <Typography className={classes.date}>{date}</Typography>
                     <Typography className={classes.textFields}>₹ {value}</Typography>
                 </Grid>
                 <IconButton variant="outlined" color="secondary" className={showDelete?classes.buttonAppear:classes.buttonHidden}  onClick={() => { onDelete(id) }}>
