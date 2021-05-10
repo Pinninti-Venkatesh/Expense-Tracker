@@ -47,7 +47,7 @@ const SavingsCard = () => {
                     Savings
                 </Typography>
                 <Typography gutterBottom variant="h5" component="h2" className={classes.money}>
-                    ₹ {(total).toFixed(2)}
+                    ₹ {total}
                 </Typography>
             </CardContent>
         </Card>
